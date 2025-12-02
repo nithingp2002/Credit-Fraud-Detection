@@ -9,9 +9,9 @@ from sklearn.metrics import precision_recall_curve, f1_score
 import numpy as np
 import joblib
 
-print("🚀 Training started...")
+print(" Training started...")
 
-# ---------------- LOAD DATA ----------------
+#LOAD DATA
 df = pd.read_csv("creditcard.csv")
 
 # Sort chronologically
@@ -30,10 +30,9 @@ X_train, X_test, y_train, y_test = train_test_split(
 X_train = X_train.drop(columns=["Time"])
 X_test = X_test.drop(columns=["Time"])
 
-# ---------------- TIME SERIES SPLIT ----------------
 tscv = TimeSeriesSplit(n_splits=5)
 
-# ---------------- RANDOM FOREST MODEL ----------------
+# RANDOM FOREST MODEL 
 rf_pipeline = Pipeline([
     ("scaler", StandardScaler()),
     ("model", RandomForestClassifier(
@@ -65,7 +64,7 @@ rf_search.fit(X_train, y_train)
 rf_score = rf_search.best_score_
 print(f"🎯 RF Best ROC-AUC = {rf_score:.4f}")
 
-# ---------------- XGBOOST MODEL ----------------
+#XGBOOST MODEL
 xgb_pipeline = Pipeline([
     ("model", XGBClassifier(
         n_estimators=300,
@@ -100,7 +99,7 @@ xgb_search.fit(X_train, y_train)
 xgb_score = xgb_search.best_score_
 print(f"🎯 XGB Best ROC-AUC = {xgb_score:.4f}")
 
-# ---------------- SELECT BEST MODEL ----------------
+#SELECT BEST MODEL
 if xgb_score > rf_score:
     best_model = xgb_search.best_estimator_
     best_name = "XGBoost"
@@ -112,7 +111,7 @@ else:
 
 print("\n🏆 BEST MODEL SELECTED:", best_name)
 
-# ---------------- THRESHOLD OPTIMIZATION ----------------
+#THRESHOLD OPTIMIZATION
 y_proba_test = best_model.predict_proba(X_test)[:, 1]
 precision, recall, thresholds = precision_recall_curve(y_test, y_proba_test)
 
@@ -121,7 +120,7 @@ best_threshold = thresholds[np.argmax(f1_scores)]
 
 print(f"🎯 Optimal Threshold = {best_threshold:.4f}")
 
-# ---------------- SAVE MODEL & THRESHOLD ----------------
+# SAVE MODEL & THRESHOLD 
 joblib.dump(
     {"model": best_model, "X_test": X_test, "y_test": y_test, "threshold": float(best_threshold)},
     "fraud_model_final.pkl"
