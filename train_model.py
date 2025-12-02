@@ -59,10 +59,10 @@ rf_search = RandomizedSearchCV(
     random_state=42
 )
 
-print("\n⚙️ Training Random Forest...")
+print("\n Training Random Forest...")
 rf_search.fit(X_train, y_train)
 rf_score = rf_search.best_score_
-print(f"🎯 RF Best ROC-AUC = {rf_score:.4f}")
+print(f" RF Best ROC-AUC = {rf_score:.4f}")
 
 #XGBOOST MODEL
 xgb_pipeline = Pipeline([
@@ -94,10 +94,10 @@ xgb_search = RandomizedSearchCV(
     random_state=42
 )
 
-print("\n⚙️ Training XGBoost...")
+print("\n Training XGBoost...")
 xgb_search.fit(X_train, y_train)
 xgb_score = xgb_search.best_score_
-print(f"🎯 XGB Best ROC-AUC = {xgb_score:.4f}")
+print(f" XGB Best ROC-AUC = {xgb_score:.4f}")
 
 #SELECT BEST MODEL
 if xgb_score > rf_score:
@@ -109,7 +109,7 @@ else:
     best_name = "RandomForest"
     best_score = rf_score
 
-print("\n🏆 BEST MODEL SELECTED:", best_name)
+print("\n BEST MODEL SELECTED:", best_name)
 
 #THRESHOLD OPTIMIZATION
 y_proba_test = best_model.predict_proba(X_test)[:, 1]
@@ -128,4 +128,5 @@ joblib.dump(
 
 print("💾 Model saved to fraud_model_final.pkl")
 print("🎉 Training complete")
+
 
