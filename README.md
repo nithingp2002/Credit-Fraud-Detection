@@ -1,20 +1,19 @@
 # Credit-Fraud-Detection
 Credit Card Fraud Detection (End-to-End ML System)
-An end-to-end machine learning project to detect fraudulent credit card transactions using real-world banking dataset (284,807 records). Designed a full pipeline for model training, evaluation, and deployment with real-time prediction support.
+An end-to-end machine learning system for detecting fraudulent credit card transactions using a real-world banking dataset (284,807 transactions). The project combines supervised classification and unsupervised anomaly detection in a complete pipeline covering data preprocessing, time-aware training, model evaluation, threshold tuning, and deployment, with support for real-time and batch predictions.
 
 🔍 Key Highlights
 
-- Built automated ML pipeline for fraud detection with extensive preprocessing & feature handling.
+Built a fully automated ML pipeline for fraud detection with extensive preprocessing, scaling, and imbalance handling.
 
-- Experimented with multiple models — Logistic Regression, KNN, XGBoost, Random Forest — and selected the best using RandomizedSearchCV.
+Implemented supervised models including Logistic Regression, KNN, Random Forest, and XGBoost, with model selection via RandomizedSearchCV.
 
-- Achieved industry-relevant performance using class imbalance handling via class weighting, threshold optimization & performance tuning.
+Added unsupervised anomaly detection using clustering-based methods (K-Means / Hierarchical) to capture previously unseen fraud patterns.
 
-- Final chosen model: Random Forest Classifier due to superior precision and balanced performance.
+Designed an ensemble decision strategy combining supervised probabilities and unsupervised anomaly signals.
 
-- Final model results:
-  Accuracy: 99.96% | Precision: 0.92 | Recall: 0.76 | F1-Score: 0.83 | ROC-AUC: 0.99 | PR-AUC: 0.81
+Applied class weighting and decision threshold optimization to balance precision and recall under extreme class imbalance (0.17% fraud).
 
-- Added custom decision threshold logic to reduce false positives real-world usage.
+Achieved strong performance: Accuracy 99.96% | Precision 0.92 | Recall 0.76 | F1-score 0.83 | ROC-AUC 0.99 | PR-AUC 0.81.
 
-- Developed interactive web dashboard enabling single & batch transaction prediction and model performance analysis.
+Developed an interactive web dashboard for single and batch transaction prediction with model performance insights.
